@@ -15,6 +15,10 @@ Objectives
 - Specifically, for this assignment, in the actual java code, introduce appropriate classes in order to remove the need for enumerated types and for other classes that contain methods that do not support the primary role of instances of that class
 - To be able to make design changes to a large code base and have the code still work
 
+## Given code
+
+Obtain the code from this GitHub classroom assignment: **TODO**. You will use this same assignment for the next 3 projects, including this one.
+
 ## Task Overview
 
 You must identify those classes with low cohesion and then split these classes into separate classes exhibiting high cohesion. Since each of these new classes will introduce a separate type, you may need to “root” them at a single type (as defined by an interface or an abstract class) to satisfy Java’s type checking rules. When you are done, many classes will end up with multiple parent types (e.g. implement multiple interfaces) or may have a parent type that has its own parent types in turn.
