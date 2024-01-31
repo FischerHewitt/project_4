@@ -2,71 +2,92 @@
 
 In this project, you are given a large object-oriented codebase and are asked to refactor it to improve its cohesion.
 
-Take some time to study this codebase. In doing so, you may have noticed that some classes support functionality (methods) that are not appropriate for all instances of the class. Moreover, these classes support data attributes that are not used by all instances of the class.
+Take some time to study this codebase. In doing so, you may have noticed that some classes support functionality (methods) that are not appropriate for all instances of the class. Moreover, these classes support data attributes (instance variables) that are not used by all instances of the class.
 
 This is an issue of _cohesion_. Specifically, these classes exhibit low (poor) cohesion by representing multiple concepts, combining all attributes and methods used by each concept in a single class.
 
-This project asks that you improve the code base by splitting each class exhibiting low cohesion into multiple, highly cohesive classes. Doing so in Java will require identifying common methods for each subset of these new classes and then introducing a new parent type for each logical grouping of these methods (more on this below).
-Objectives
+This project asks that you improve the code base by splitting each class exhibiting low cohesion into multiple, highly cohesive classes.
+Doing so in Java will require identifying common methods for each subset of these new classes and then introducing a new parent type for each logical grouping of these methods (more on this below).
 
-- Deepen your understanding of the specific functionality of the large project design
-- To be able to read and understand java code and be able to evaluate the cohesion of the class structure in existing code
-- To be able to implement abstract classes and/or interfaces and use them to improve cohesion in a project design
-- Specifically, for this assignment, in the actual java code, introduce appropriate classes in order to remove the need for enumerated types and for other classes that contain methods that do not support the primary role of instances of that class
-- To be able to make design changes to a large code base and have the code still work
+## Objectives
+
+- Deepen your understanding of the specific functionality of the large project design.
+- To be able to read and understand java code and be able to evaluate the cohesion of the class structure in existing code.
+- To be able to implement abstract classes and/or interfaces and use them to improve cohesion in a project design.
+- Introduce appropriate classes in order to remove the need for enumerated types and for other classes that contain methods that do not support the primary role of instances of that class.
+- To be able to make design changes to a large code base and have the code still work.
 
 ## Given code
 
-Obtain the code from this GitHub classroom assignment: **TODO**. You will use this same assignment for the next 3 projects, including this one.
+Obtain the code from this GitHub classroom assignment: **LINK IN CANVAS**.
+You will use this codebase for the next 3 programming projects, including this one.
 
 ## Task Overview
 
-You must identify those classes with low cohesion and then split these classes into separate classes exhibiting high cohesion. Since each of these new classes will introduce a separate type, you may need to “root” them at a single type (as defined by an interface or an abstract class) to satisfy Java’s type checking rules. When you are done, many classes will end up with multiple parent types (e.g. implement multiple interfaces) or may have a parent type that has its own parent types in turn.
+You must identify those classes with low cohesion and then split these classes into separate classes exhibiting high cohesion.
 
-Based on the original source code, there are likely two categories of classes with low cohesion. The first category consists of those classes that depend on ActionKind or EntityKind. The second category depends on your final distribution of the methods in the original Functions class.
+Since each of these new classes will introduce a separate type, you will need to “root” them at a single parent type (as defined by an interface or an abstract class) to satisfy Java’s type checking rules.
+When you are done, many classes will end up with multiple parent types (e.g. implement multiple interfaces) or may have a parent type that has its own parent types in turn.
 
-- "Kind": The original source code uses ActionKind and EntityKind to allow each Action instance and each Entity instance to play one of potentially many roles (polymorphism). You are to eliminate these Kind classes (enums) by splitting Action and Entity into multiple new classes.
+Based on the original source code, there are likely two categories of classes with low cohesion.
 
-- Other: Review all of the classes with a focus on cohesion. Does a class contain data that is not used by all instances of the class (i.e., each “kind” uses only subsets of the data)? Does a class contain methods that do not support the primary role of instances of the class (e.g., static methods that are used to create instances or parse files, but that are not actually part of the functionality provided by the instances)?
+- "Kind": The original source code uses `EntityKind` and `ActionKind` to allow each `Action` instance and each `Entity` instance to play one of potentially many roles (polymorphism). You are to eliminate these `Kind` classes (enums) by splitting `Entity` and `Action` into multiple new classes.
+
+- Other: Review all of the classes with a focus on cohesion. Does a class contain data that is not used by all instances of the class (i.e., each “kind” uses only subsets of the data)? Does a class contain methods that do not support the primary role of instances of the class?
 
 **You are strongly encouraged to:**
-- Develop both a design document and the code refactoring at the same time.
+- Develop both a design document and the code refactoring at the same time. Do not try to dive straight into coding without a plan.
 - Implement the refactoring incrementally so that your refactored program executes properly at each step. That is, after each change, run the program using the main method in `VirtualWorld.java` and tests in `WorldTests.java` and make sure that it continues to behave as expected.
-- Commit your code and push to GitHub often. On this project more than before you are likely to want to look at previous versions of the codebase.
+- Commit your code and push to GitHub often. On this project more than before you are likely to want to look at previous versions of the codebase. **So make sure your commit messages are meaningful.** Do NOT simply write messages like "Done" or "Made changes", etc.
 
 ## Introducing Parent Types
 
-Consider this example. Above we’ve discussed the EntityKind enums, which are used to differentiate between different kinds of Entities. In this project, you’ll need to split those classes into multiple new classes, each of which represents a specific kind of Entity. However, to satisfy Java’s type-checking rules, we need to “root” those new classes at a single type.
+Consider this example. Above we’ve discussed the `EntityKind` enums, which are used to differentiate between different kinds of `Entities`.
+In this project, you’ll need to split those classes into multiple new classes, each of which represents a specific kind of `Entity`. However, to satisfy Java’s type-checking rules, we need to “root” those new classes at a single type. That is, the rest of this project still refers to `Entity` objects—we don't want those classes to have to change because you're splitting up `Entity` into sub-classes.
 
-You have a number of strategies in your arsenal that will help you address this. Namely, you can introduce an interface or an abstract class. Consider carefully the pros and cons of either approach.
+You have a number of strategies in your arsenal that will help you address this. Namely, you can introduce interfaces or abstract classes. Consider carefully the pros and cons of either approach.
 
 ### Strategy 1
 
 An interface can define a number of abstract methods which are then implemented by each of the implementing subclasses. This solves our problem of rooting our new subclasses at a single parent type.
 
-However, it will introduce a fair amount of code duplication. This is because each implementing subclass will need to implement all of the abstract methods that are listed in the interface, even if the implementations are identical for multiple subclasses. How to address this?
+However, it will introduce a fair amount of code duplication. Each implementing subclass will need to implement _all_ the abstract methods listed in the interface, even if the implementations are identical for multiple subclasses. How to address this?
 
 ### Strategy 2
 
-This can be addressed by using default methods in your interfaces. Default methods let you provide implementations for certain methods (which will be used by the implementing subclasses unless they have their own implementations). This solves the problem of duplicated method implementations, but does still cause difficulties because interfaces cannot have instance variables.
+This can be addressed by using `default` methods in your interfaces.
+Default methods let you provide implementations for certain methods (which will be used by the implementing subclasses unless they have their own implementations).
+This solves the problem of duplicated method implementations, but does still cause difficulties because interfaces cannot have instance variables.
 
 ### Strategy 3
 
-You can address this by instead using an abstract class. Abstract classes, as you recall, can have a mix of abstract and fully implemented methods (in a manner very similar to an interface having abstract and default methods). A key difference is that abstract classes can also have instance variables—this means you can avoid duplication of data, not just methods.
+You can address this by instead using an `abstract class`.
+Abstract classes, as you recall, can have a mix of abstract and fully implemented methods (in a manner very similar to an interface having abstract and default methods).
+A key difference is that abstract classes can also have instance variables—this means you can avoid duplication of _data_, not just _methods_.
 
-**So why not just use abstract classes if they solve so many problems?** Remember that a class can extend no more than one abstract class. As you design your solution, you will find that this introduces a number of constraints, not all of which are desirable.
+**So why not just use abstract classes if they solve so many problems?** Remember that a class can extend no more than one abstract class.
+As you design your solution, you will find that this introduces a number of constraints, not all of which are desirable.
 
 Like many problems in software design, there is no “silver bullet” that solves all your problems. You will consider design trade-offs and make your own decisions about how to approach this project, likely using a mix of the above strategies.
 
+## Design goals
+
+As I've mentioned in class:
+
+**There is no single correct solution to this project. But there ARE many possible incorrect solutions.**
+
 No matter what you do, your main guiding principles throughout will be:
 
-- Improve cohesion. Classes should only include functionality that relevant to all instances of the class. There should NOT be functionality in a class that only relevant to some instances of the class.
-- Remove code duplication. There should be little-to-no code duplication in the project once you’re done. Where classes have similar or identical code, abstract out that functionality into a parent type.
-- If you opt to use mostly interfaces and default methods, you will find that private instance variables and their public getters and setters must be duplicated across all implementing subclasses. This duplication is okay.
+- **Improve cohesion**. Classes should _only_ include functionality that is relevant to all instances of the class. There should NOT be functionality in a class that is only ever invoked for some instances of the class but not others. In practice, this means:
+  - No empty methods in a subclass (this includes methods that only return a dummy value in order to get the code to compile).
+  - No unused instance variables in a subclass.
+- **Remove code duplication**. There should be little-to-no code duplication in the project once you’re done. Where classes have similar or identical code, abstract out that functionality into a parent type.
+  - This can include pulling entire methods into a parent type, or pulling up _parts_ of a method into a parent type.
+  - If you opt to use mostly interfaces and default methods, you will find that private instance variables and their public getters and setters must be duplicated across all implementing subclasses. This duplication is okay.
 
 ## Design document
 
-There is no design document submission required. However, you are strongly encouraged to prepare a diagram describing your program design before you begin refactoring the source code. Show me this diagram during lab or office hours to receive some feedback about it before you dive too deeply into code editing.
+You are strongly encouraged to prepare a diagram describing your program design before you begin refactoring the source code. Show me this diagram during lab or office hours to receive some feedback about it before you dive too deeply into code editing.
 
 ## Source code refactoring
 
