@@ -85,9 +85,12 @@ No matter what you do, your main guiding principles throughout will be:
   - This can include pulling entire methods into a parent type, or pulling up _parts_ of a method into a parent type.
   - If you opt to use mostly interfaces and default methods, you will find that private instance variables and their public getters and setters must be duplicated across all implementing subclasses. This duplication is okay.
 
+You should also not "over-correct" to the opposite extreme, where you create interfaces or abstract classes for _every single method_. It is up to you to idenitfy the right abstractions, i.e., the appropriate groupings of data and functionality.
+
 ## Design document
 
-You are strongly encouraged to prepare a diagram describing your program design before you begin refactoring the source code. Show me this diagram during lab or office hours to receive some feedback about it before you dive too deeply into code editing.
+You are strongly encouraged to prepare a diagram describing your program design before you begin refactoring the source code.
+Show me this diagram during lab or office hours to receive some feedback about it before you dive too deeply into code editing.
 
 ## Source code refactoring
 
@@ -103,7 +106,7 @@ Your introduction of parent types for this project must be meaningful. It is ins
 - Group the new classes into sets with similar functionality. Introduce additional interfaces as appropriate (see below).
 - Examine the original uses of the objects (before this change) to determine which methods are used by client code. Can the client code still access that method based on the reference type? Will it be able to do so if you change the type to one of the interfaces that you have already introduced? Do any interfaces have to extend a more general interface for it to compile?
 
-At this point, if you only added interfaces, you will have lots of duplicate code. Next, consider if your interfaces could use default methods or if there is any common data / implementation you can pull up if your interface was instead an abstract parent (or if your interface was implemented by an abstract parent).
+At this point, if you only added interfaces, you will have lots of duplicate code. Next, consider if your interfaces could use default methods or if there is any common data / implementation you can "pull up" if your interface was instead an abstract parent (or if your interface was implemented by an abstract parent).
 
 ---
 
@@ -141,4 +144,5 @@ Consider the following tips.
 
 Commit and push your code to your project GitHub repository.
 
-Your submission must include all source files (even those that were unchanged). Your grader should be able to build your project based on the files submitted. An explicit list of files is not given because you are creating new files for this assignment, so verify that you have submitted everything properly. Remove files from your repository that are no longer needed for your project (e.g. EntityKind.java).
+Your submission must include all source files (even those that were unchanged). Your grader should be able to build your project based on the files submitted. An explicit list of files is not given because you are creating new files for this assignment, so verify that you have submitted everything properly. Remove files from your repository that are no longer needed for your project (e.g., `EntityKind.java`).
+
