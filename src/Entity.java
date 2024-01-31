@@ -42,17 +42,17 @@ public final class Entity {
     public static final int TREE_HEALTH_MIN = 1;
 
     // Instance variables
-    public EntityKind kind;
-    public String id;
-    public Point position;
-    public List<PImage> images;
-    public int imageIndex;
-    public int resourceLimit;
-    public int resourceCount;
-    public double actionPeriod;
-    public double animationPeriod;
-    public int health;
-    public int healthLimit;
+    private final EntityKind kind;
+    private final String id;
+    private Point position;
+    private final List<PImage> images;
+    private int imageIndex;
+    private final int resourceLimit;
+    private int resourceCount;
+    private final double actionPeriod;
+    private final double animationPeriod;
+    private int health;
+    private final int healthLimit;
 
     public Entity(EntityKind kind, String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
         this.kind = kind;
@@ -86,6 +86,26 @@ public final class Entity {
 
             return Optional.of(nearest);
         }
+    }
+
+    public EntityKind getKind() {
+        return this.kind;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    public int getHealth() {
+        return health;
     }
 
     public PImage getCurrentImage(){

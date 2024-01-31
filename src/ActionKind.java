@@ -1,3 +1,3 @@
-enum ActionKind {
+public enum ActionKind {
     ACTIVITY, ANIMATION
 }

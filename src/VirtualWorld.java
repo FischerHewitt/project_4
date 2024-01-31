@@ -26,14 +26,14 @@ public final class VirtualWorld extends PApplet {
     public static final double FASTER_SCALE = 0.25;
     public static final double FASTEST_SCALE = 0.10;
 
-    public String loadFile = "world.sav";
-    public long startTimeMillis = 0;
-    public double timeScale = 1.0;
+    private String loadFile = "world.sav";
+    private long startTimeMillis = 0;
+    private double timeScale = 1.0;
 
-    public ImageStore imageStore;
-    public WorldModel world;
-    public WorldView view;
-    public EventScheduler scheduler;
+    private ImageStore imageStore;
+    private WorldModel world;
+    private WorldView view;
+    private EventScheduler scheduler;
 
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
@@ -55,7 +55,7 @@ public final class VirtualWorld extends PApplet {
 
     public void draw() {
         double appTime = (System.currentTimeMillis() - startTimeMillis) * 0.001;
-        double frameTime = (appTime - scheduler.currentTime)/timeScale;
+        double frameTime = (appTime - scheduler.getCurrentTime())/timeScale;
         this.update(frameTime);
         view.drawViewport();
     }
@@ -73,7 +73,7 @@ public final class VirtualWorld extends PApplet {
         Optional<Entity> entityOptional = world.getOccupant(pressed);
         if (entityOptional.isPresent()) {
             Entity entity = entityOptional.get();
-            System.out.println(entity.id + ": " + entity.kind + " : " + entity.health);
+            System.out.println(entity.getId() + ": " + entity.getKind() + " : " + entity.getHealth());
         }
 
     }

@@ -2,11 +2,11 @@
  * An action that can be taken by an entity
  */
 public final class Action {
-    public ActionKind kind;
-    public Entity entity;
-    public WorldModel world;
-    public ImageStore imageStore;
-    public int repeatCount;
+     private final ActionKind kind;
+     private final Entity entity;
+     private final WorldModel world;
+     private final ImageStore imageStore;
+     private final int repeatCount;
 
     public Action(ActionKind kind, Entity entity, WorldModel world, ImageStore imageStore, int repeatCount) {
         this.kind = kind;
@@ -25,14 +25,14 @@ public final class Action {
     }
 
     public void executeActivityAction(EventScheduler scheduler) {
-        switch (this.entity.kind) {
+        switch (this.entity.getKind()) {
             case SAPLING -> this.entity.executeSaplingActivity(this.world, this.imageStore, scheduler);
             case TREE -> this.entity.executeTreeActivity(this.world, this.imageStore, scheduler);
             case FAIRY -> this.entity.executeFairyActivity(this.world, this.imageStore, scheduler);
             case DUDE_NOT_FULL -> this.entity.executeDudeNotFullActivity(this.world, this.imageStore, scheduler);
             case DUDE_FULL -> this.entity.executeDudeFullActivity(this.world, this.imageStore, scheduler);
             default ->
-                    throw new UnsupportedOperationException(String.format("executeActivityAction not supported for %s", this.entity.kind));
+                    throw new UnsupportedOperationException(String.format("executeActivityAction not supported for %s", this.entity.getKind()));
         }
     }
 

@@ -73,7 +73,7 @@ public final class WorldModel {
         int lineNumber = 0;
         while (in.hasNextLine()) {
             try {
-                processImageLine(imageStore.images, in.nextLine(), screen);
+                processImageLine(imageStore.getImages(), in.nextLine(), screen);
             } catch (NumberFormatException e) {
                 System.out.printf("Image format error on line %d\n", lineNumber);
             }
@@ -259,7 +259,7 @@ public final class WorldModel {
 
             /* This moves the entity just outside of the grid for
              * debugging purposes. */
-            entity.position = new Point(-1, -1);
+            entity.setPosition(new Point(-1, -1));
             this.entities.remove(entity);
             this.setOccupancyCell(pos, null);
         }
@@ -267,17 +267,17 @@ public final class WorldModel {
 
     public void removeEntity(EventScheduler scheduler, Entity entity) {
         scheduler.unscheduleAllEvents(entity);
-        this.removeEntityAt(entity.position);
+        this.removeEntityAt(entity.getPosition());
     }
 
     public void moveEntity(EventScheduler scheduler, Entity entity, Point pos) {
-        Point oldPos = entity.position;
+        Point oldPos = entity.getPosition();
         if (withinBounds(pos) && !pos.equals(oldPos)) {
             this.setOccupancyCell(oldPos, null);
             Optional<Entity> occupant = this.getOccupant(pos);
             occupant.ifPresent(target -> this.removeEntity(scheduler, target));
             this.setOccupancyCell(pos, entity);
-            entity.position = pos;
+            entity.setPosition(pos);
         }
     }
 
@@ -286,8 +286,8 @@ public final class WorldModel {
            intended destination cell.
         */
     public void addEntity(Entity entity) {
-        if (withinBounds(entity.position)) {
-            this.setOccupancyCell(entity.position, entity);
+        if (withinBounds(entity.getPosition())) {
+            this.setOccupancyCell(entity.getPosition(), entity);
             this.entities.add(entity);
         }
     }
@@ -296,7 +296,7 @@ public final class WorldModel {
         List<Entity> ofType = new LinkedList<>();
         for (EntityKind kind : kinds) {
             for (Entity entity : this.entities) {
-                if (entity.kind == kind) {
+                if (entity.getKind() == kind) {
                     ofType.add(entity);
                 }
             }
@@ -314,7 +314,7 @@ public final class WorldModel {
     }
 
     public void tryAddEntity(Entity entity) {
-        if (this.isOccupied(entity.position)) {
+        if (this.isOccupied(entity.getPosition())) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");

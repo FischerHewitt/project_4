@@ -2,6 +2,8 @@
  * A simple class representing a location in 2D space.
  */
 public final class Point {
+    // It's okay for these to be public, since the Point is a super-simple
+    // wrapper around an x and y coordinate.
     public final int x;
     public final int y;
 
