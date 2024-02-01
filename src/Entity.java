@@ -6,7 +6,7 @@ import processing.core.PImage;
  * An entity that exists in the world. See EntityKind for the
  * different kinds of entities that exist.
  */
-public final class Entity {
+public class Entity {
     // Static variables
     public static final double SAPLING_ACTION_ANIMATION_PERIOD = 1.000; // have to be in sync since grows and gains health at same time
     public static final int SAPLING_HEALTH_LIMIT = 5;
