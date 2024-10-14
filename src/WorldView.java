@@ -4,11 +4,11 @@ import processing.core.PImage;
 import java.util.Optional;
 
 public final class WorldView {
-    public PApplet screen;
-    public WorldModel world;
-    public int tileWidth;
-    public int tileHeight;
-    public Viewport viewport;
+    private final PApplet screen;
+    private final WorldModel world;
+    private final int tileWidth;
+    private final int tileHeight;
+    private final Viewport viewport;
 
     public WorldView(int numRows, int numCols, PApplet screen, WorldModel world, int tileWidth, int tileHeight) {
         this.screen = screen;
@@ -18,13 +18,17 @@ public final class WorldView {
         this.viewport = new Viewport(numRows, numCols);
     }
 
+    public Viewport getViewport() {
+        return this.viewport;
+    }
+
     public void drawViewport() {
         drawBackground();
         drawEntities();
     }
 
     public void drawEntities() {
-        for (Entity entity : this.world.entities) {
+        for (Entity entity : this.world.getEntities()) {
             Point pos = entity.getPosition();
 
             if (this.viewport.contains(pos)) {
@@ -47,8 +51,8 @@ public final class WorldView {
     }
 
     public void shiftView(int colDelta, int rowDelta) {
-        int newCol = Functions.clamp(this.viewport.getCol() + colDelta, 0, this.world.numCols - this.viewport.getNumCols());
-        int newRow = Functions.clamp(this.viewport.getRow() + rowDelta, 0, this.world.numRows - this.viewport.getNumRows());
+        int newCol = Functions.clamp(this.viewport.getCol() + colDelta, 0, this.world.getCols() - this.viewport.getNumCols());
+        int newRow = Functions.clamp(this.viewport.getRow() + rowDelta, 0, this.world.getRows() - this.viewport.getNumRows());
 
         this.viewport.shift(newCol, newRow);
     }

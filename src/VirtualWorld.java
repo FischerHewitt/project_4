@@ -50,18 +50,18 @@ public final class VirtualWorld extends PApplet {
         this.view = new WorldView(VIEW_ROWS, VIEW_COLS, this, world, TILE_WIDTH, TILE_HEIGHT);
         this.scheduler = new EventScheduler();
         this.startTimeMillis = System.currentTimeMillis();
-        this.scheduleActions(world, scheduler, imageStore);
+        this.scheduleActions(this.world, this.scheduler, this.imageStore);
     }
 
     public void draw() {
-        double appTime = (System.currentTimeMillis() - startTimeMillis) * 0.001;
-        double frameTime = (appTime - scheduler.getCurrentTime())/timeScale;
+        double appTime = (System.currentTimeMillis() - this.startTimeMillis) * 0.001;
+        double frameTime = (appTime - this.scheduler.getCurrentTime()) / this.timeScale;
         this.update(frameTime);
-        view.drawViewport();
+        this.view.drawViewport();
     }
 
     public void update(double frameTime){
-        scheduler.updateOnTime(frameTime);
+        this.scheduler.updateOnTime(frameTime);
     }
 
     // Just for debugging and for P5
@@ -79,13 +79,13 @@ public final class VirtualWorld extends PApplet {
     }
 
     public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        for (Entity entity : world.entities) {
+        for (Entity entity : world.getEntities()) {
             entity.scheduleActions(scheduler, world, imageStore);
         }
     }
 
     private Point mouseToPoint() {
-        return view.viewport.viewportToWorld(mouseX / TILE_WIDTH, mouseY / TILE_HEIGHT);
+        return view.getViewport().viewportToWorld(mouseX / TILE_WIDTH, mouseY / TILE_HEIGHT);
     }
 
     public void keyPressed() {

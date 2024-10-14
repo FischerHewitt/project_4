@@ -3,7 +3,7 @@
  */
 public final class Point {
     // It's okay for these to be public, since the Point is a super-simple
-    // wrapper around an x and y coordinate.
+    // wrapper around an x and y coordinate, and these are marked final besides.
     public final int x;
     public final int y;
 
