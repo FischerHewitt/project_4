@@ -19,16 +19,8 @@ public final class VirtualWorld extends PApplet {
     public static final String DEFAULT_IMAGE_NAME = "background_default";
     public static final int DEFAULT_IMAGE_COLOR = 0x808080;
 
-    public static final String FAST_FLAG = "-fast";
-    public static final String FASTER_FLAG = "-faster";
-    public static final String FASTEST_FLAG = "-fastest";
-    public static final double FAST_SCALE = 0.5;
-    public static final double FASTER_SCALE = 0.25;
-    public static final double FASTEST_SCALE = 0.10;
-
     private String loadFile = "world.sav";
     private long startTimeMillis = 0;
-    private double timeScale = 1.0;
 
     private ImageStore imageStore;
     private WorldModel world;
@@ -55,7 +47,7 @@ public final class VirtualWorld extends PApplet {
 
     public void draw() {
         double appTime = (System.currentTimeMillis() - this.startTimeMillis) * 0.001;
-        double frameTime = (appTime - this.scheduler.getCurrentTime()) / this.timeScale;
+        double frameTime = (appTime - this.scheduler.getCurrentTime());
         this.update(frameTime);
         this.view.drawViewport();
     }
@@ -137,13 +129,8 @@ public final class VirtualWorld extends PApplet {
     }
 
     public void parseCommandLine(String[] args) {
-        for (String arg : args) {
-            switch (arg) {
-                case FAST_FLAG -> timeScale = Math.min(FAST_SCALE, timeScale);
-                case FASTER_FLAG -> timeScale = Math.min(FASTER_SCALE, timeScale);
-                case FASTEST_FLAG -> timeScale = Math.min(FASTEST_SCALE, timeScale);
-                default -> loadFile = arg;
-            }
+        if (args.length != 0) {
+            this.loadFile = args[0]; // Instead of the default world.sav
         }
     }
 
