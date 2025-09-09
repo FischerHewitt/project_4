@@ -35,10 +35,21 @@ Based on the original source code, there are likely two categories of classes wi
 
 - Other: Review all of the classes with a focus on cohesion. Does a class contain data that is not used by all instances of the class (i.e., each “kind” uses only subsets of the data)? Does a class contain methods that do not support the primary role of instances of the class?
 
-**You are strongly encouraged to:**
-- Develop both a design document and the code refactoring at the same time. Do not try to dive straight into coding without a plan.
-- Implement the refactoring incrementally so that your refactored program executes properly at each step. That is, after each change, run the program using the main method in `VirtualWorld.java` and tests in `WorldTests.java` and make sure that it continues to behave as expected.
-- Commit your code and push to GitHub often. On this project more than before you are likely to want to look at previous versions of the codebase. **So make sure your commit messages are meaningful.** Do NOT simply write messages like "Done" or "Made changes", etc.
+### You are strongly encouraged to...
+
+**Plan first, then implement.**
+Do not try to dive straight into coding without a plan.
+Use pen and paper to sketch out your design as a diagram, showing the relationships between the various classes and interfaces you plan to introduce.
+This may not be your final design, but it will help you think through the problem before you start making changes to the code.
+_Get feedback on your design from me during lab or office hours before you start coding._
+
+**Check your work early and often.**
+Implement the refactoring incrementally so that your refactored program executes properly at each step. That is, after each change, run the program using the main method in `VirtualWorld.java` and tests in `WorldTests.java` and make sure that it continues to behave as expected.
+
+The [`TESTING.md`](TESTING.md) runs through a couple of examples to help you understand the test cases.
+
+**Commit and push to GitHub often.**
+On this project more than before you are likely to want to look at previous versions of the codebase. **So make sure your commit messages are meaningful.** Do NOT simply write messages like "Done" or "Made changes", etc.
 
 ## Introducing Parent Types
 
