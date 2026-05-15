@@ -6,45 +6,44 @@
  * - Animation actions: things like the Dude swinging his axe, or the Tree swaying, or
  *      the Fairy twinkling.
  */
-public final class Action {
-     private final ActionKind kind;
-     private final Entity entity;
-     private final WorldModel world;
-     private final ImageStore imageStore;
-     private final int repeatCount;
+public abstract class Action {
+     protected Entity entity;
+     protected WorldModel world;
+     protected ImageStore imageStore;
+     protected String type;
 
-    public Action(ActionKind kind, Entity entity, WorldModel world, ImageStore imageStore, int repeatCount) {
-        this.kind = kind;
+//    public Entity getEntity() {
+//        return entity;
+//    }
+
+    public Action(){}
+
+
+    public Action(String type, Entity entity, WorldModel world, ImageStore imageStore ) {
         this.entity = entity;
         this.world = world;
         this.imageStore = imageStore;
-        this.repeatCount = repeatCount;
+        this.type = type;
     }
 
-    public static Action createActivityAction(Entity entity, WorldModel world, ImageStore imageStore) {
-        return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
+//    public Action(ActionKind kind, Entity entity ) {
+//        this.entity = entity;
+//    }
+
+//    public static Action createAction(String actionType, Entity entity, WorldModel world, ImageStore imageStore, int animationPeriod, int repeatCount) {
+//        if ( actionType.equals("ACTIVITY") )
+//            return new ACTIVITY(ActionKind.ACTIVITY, entity, world, imageStore);
+//        else
+//            return new ANIMATION(ActionKind.ANIMATION, entity, repeatCount);
+//
+//    }
+
+    public static ACTIVITY createActivityAction(Entity entity, WorldModel world, ImageStore imageStore) {
+        return new ACTIVITY(entity, world, imageStore);
     }
 
-    public static Action createAnimationAction(Entity entity, int repeatCount) {
-        return new Action(ActionKind.ANIMATION, entity, null, null, repeatCount);
-    }
-
-    /**
-     * Ask the EventScheduler to execute an activity action for this action's Entity.
-     * This entails telling the Entity to execute its activity.
-     *
-     * @param scheduler The scheduler that queues up events.
-     */
-    public void executeActivityAction(EventScheduler scheduler) {
-        switch (this.entity.getKind()) {
-            case SAPLING -> this.entity.executeSaplingActivity(this.world, this.imageStore, scheduler);
-            case TREE -> this.entity.executeTreeActivity(this.world, this.imageStore, scheduler);
-            case FAIRY -> this.entity.executeFairyActivity(this.world, this.imageStore, scheduler);
-            case DUDE_NOT_FULL -> this.entity.executeDudeNotFullActivity(this.world, this.imageStore, scheduler);
-            case DUDE_FULL -> this.entity.executeDudeFullActivity(this.world, this.imageStore, scheduler);
-            default ->
-                    throw new UnsupportedOperationException(String.format("executeActivityAction not supported for %s", this.entity.getKind()));
-        }
+    public static ANIMATION createAnimationAction(Entity entity, int repeatCount, WorldModel world, ImageStore imageStore) {
+        return new ANIMATION(entity, repeatCount, world, imageStore);
     }
 
     /**
@@ -53,18 +52,6 @@ public final class Action {
      *
      * @param scheduler The scheduler that queues up events.
      */
-    public void executeAnimationAction(EventScheduler scheduler) {
-        this.entity.nextImage();
 
-        if (this.repeatCount != 1) {
-            scheduler.scheduleEvent(this.entity, createAnimationAction(this.entity, Math.max(this.repeatCount - 1, 0)), this.entity.getAnimationPeriod());
-        }
-    }
-
-    public void executeAction(EventScheduler scheduler) {
-        switch (this.kind) {
-            case ACTIVITY -> this.executeActivityAction(scheduler);
-            case ANIMATION -> this.executeAnimationAction(scheduler);
-        }
-    }
+    public abstract void executeAction(EventScheduler scheduler);
 }
