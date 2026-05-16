@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class Fairy extends Entity {
+public class Fairy extends AnimatedEntity {
     public static final String FAIRY_KEY = "fairy";
     public static final int FAIRY_ANIMATION_PERIOD_IDX = 0;
     public static final int FAIRY_ACTION_PERIOD_IDX = 1;
@@ -44,7 +44,7 @@ public class Fairy extends Entity {
 
             if (this.moveToFairy(world, fairyTarget.get(), scheduler)) {
 
-                Entity sapling = Sapling.createSapling(Sapling.SAPLING_KEY + "_" + fairyTarget.get().id, tgtPos, imageStore.getImageList(Sapling.SAPLING_KEY), 0);
+                AnimatedEntity sapling = (AnimatedEntity) Sapling.createSapling(Sapling.SAPLING_KEY + "_" + fairyTarget.get().id, tgtPos, imageStore.getImageList(Sapling.SAPLING_KEY), 0);
 
                 world.addEntity(sapling);
                 sapling.scheduleActions(scheduler, world, imageStore);

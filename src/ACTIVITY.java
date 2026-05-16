@@ -27,8 +27,9 @@ public class ACTIVITY extends Action{
      */
     // fix later: should be able to combine
     public void executeAction(EventScheduler scheduler) {
-        this.entity.executeActivity(this.world, this.imageStore, scheduler);
-
+        if (this.entity instanceof AnimatedEntity animatedEntity){
+            animatedEntity.executeActivity(this.world, this.imageStore, scheduler);
+        }
     }
 
 

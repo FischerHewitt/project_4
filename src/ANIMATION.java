@@ -27,8 +27,8 @@ public class ANIMATION extends Action {
         public void executeAction(EventScheduler scheduler) {
             this.entity.nextImage();
 
-            if (this.repeatCount != 1) {
-                scheduler.scheduleEvent(this.entity, createAnimationAction(this.entity, Math.max(this.repeatCount - 1, 0), this.world, this.imageStore), this.entity.getAnimationPeriod());
+            if (this.repeatCount != 1 && this.entity instanceof AnimatedEntity animatedEntity) {
+                scheduler.scheduleEvent(this.entity, createAnimationAction(this.entity, Math.max(this.repeatCount - 1, 0), this.world, this.imageStore), animatedEntity.getAnimationPeriod());
             }
         }
 

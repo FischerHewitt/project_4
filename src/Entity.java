@@ -3,8 +3,12 @@ import java.util.*;
 import processing.core.PImage;
 
 /**
- * An entity that exists in the world. See EntityKind for the
- * different kinds of entities that exist.
+ * An entity that exists in the world.
+ * DudeFull
+ * DudeNotFull
+ * Fairy
+ * House
+ * Obstacle
  */
 public abstract class Entity {
     /*
@@ -23,12 +27,7 @@ public abstract class Entity {
     protected Point position;
     protected final List<PImage> images;
     protected int imageIndex;
-    protected final int resourceLimit;
-    protected int resourceCount;
-    protected final double actionPeriod;
-    protected final double animationPeriod;
-    protected int health;
-    protected final int healthLimit;
+
 
     /**
      * Creates a new Entity.
@@ -36,27 +35,13 @@ public abstract class Entity {
      * @param id The id of the new entity.
      * @param position The position (x,y coordinate) of this new entity.
      * @param images The image list associated with this entity.
-     * @param resourceLimit The resourceLimit for this entity. Not all entities need this.
-     * @param resourceCount The resourceCount for this entity. Not all entities need this.
-     * @param actionPeriod The actionPeriod for this entity (i.e., how long it takes to perform each activity action).
-     *                     Not all entities need this.
-     * @param animationPeriod The animationPeriod (i.e., how long it takes to perform one animation).
-     *                        Not all entities need this.
-     * @param health The entity's starting health. Not all entities need this.
-     * @param healthLimit The entity's upper health limit. Not all entities need this.
      */
-    public Entity(String id, Point position, List<PImage> images, int resourceLimit,
-                  int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
+    public Entity(String id, Point position, List<PImage> images) {
         this.id = id;
         this.position = position;
         this.images = images;
         this.imageIndex = 0;
-        this.resourceLimit = resourceLimit;
-        this.resourceCount = resourceCount;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
-        this.health = health;
-        this.healthLimit = healthLimit;
+
     }
 
     public static Optional<Entity> nearestEntity(List<Entity> entities, Point pos) {
@@ -90,11 +75,6 @@ public abstract class Entity {
     public void setPosition(Point position) {
         this.position = position;
     }
-
-    public int getHealth() {
-        return health;
-    }
-
     public PImage getCurrentImage(){
         return this.images.get(this.imageIndex % this.images.size());
     }
@@ -103,11 +83,6 @@ public abstract class Entity {
         this.imageIndex = this.imageIndex + 1;
     }
 
-    public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
-
-
-    public abstract void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore);
-
     /**
      * Helper method for testing. Preserve this functionality while refactoring.
      */
@@ -115,6 +90,4 @@ public abstract class Entity {
         return this.id.isEmpty() ? null :
                 String.format("%s %d %d %d", this.id, this.position.x, this.position.y, this.imageIndex);
     }
-
-    public abstract double getAnimationPeriod();
 }

@@ -40,7 +40,7 @@ public class DudeFull extends Dude{
     }
 
     public void transformFull(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        Entity dude = DudeNotFull.createDudeNotFull(this.id, this.position, this.actionPeriod, this.animationPeriod, this.resourceLimit, this.images);
+        AnimatedEntity dude = (AnimatedEntity) DudeNotFull.createDudeNotFull(this.id, this.position, this.actionPeriod, this.animationPeriod, this.resourceLimit, this.images);
 
         world.removeEntity(scheduler, this);
 

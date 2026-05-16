@@ -14,27 +14,11 @@ public class Stump extends Entity{
      * @return a new Entity whose type is Stump.
      */
     public static Entity createStump(String id, Point position, List<PImage> images) {
-        return new Stump(id, position, images, 0, 0, 0, 0, 0, 0);
+        return new Stump(id, position, images);
     }
 
-    public Stump(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
-    }
-
-    // fix later: wont need
-    @Override
-    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-
-    }
-
-    // fix later: wont need
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-
-    }
-
-    // fix later: wont need
-    public double getAnimationPeriod() {
-        return 0;
+    public Stump(String id, Point position, List<PImage> images) {
+        super(id, position, images);
     }
 
 }

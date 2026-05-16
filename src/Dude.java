@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class Dude extends Entity{
+public abstract class Dude extends AnimatedEntity{
     public static final String DUDE_KEY = "dude";
     public static final int DUDE_ACTION_PERIOD_IDX = 0;
     public static final int DUDE_ANIMATION_PERIOD_IDX = 1;

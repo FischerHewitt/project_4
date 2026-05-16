@@ -13,25 +13,12 @@ public class House extends Entity{
      * @return a new Entity whose type is House.
      */
     public static Entity createHouse(String id, Point position, List<PImage> images) {
-        return new House(id, position, images, 0, 0, 0, 0, 0, 0);
+        return new House(id, position, images);
     }
 
 
-    public House(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
-    }
-
-    // fix later: wont need
-    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-
-    }
-    // fix later: wont need
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-
-    }
-    // fix later wont need
-    public double getAnimationPeriod() {
-        return 0;
+    public House(String id, Point position, List<PImage> images) {
+        super(id, position, images);
     }
 
 

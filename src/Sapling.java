@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Sapling extends Entity{
+public class Sapling extends AnimatedEntity{
     public static final double SAPLING_ACTION_ANIMATION_PERIOD = 1.000;
     public static final int SAPLING_HEALTH_LIMIT = 5;
     public static final String SAPLING_KEY = "sapling";
@@ -62,7 +62,7 @@ public class Sapling extends Entity{
 
             return true;
         } else if (this.health >= this.healthLimit) {
-            Entity tree = Tree.createTree(Tree.TREE_KEY + "_" + this.id, this.position, Functions.getNumFromRange(Tree.TREE_ACTION_MAX, Tree.TREE_ACTION_MIN), Functions.getNumFromRange(Tree.TREE_ANIMATION_MAX, Tree.TREE_ANIMATION_MIN), Functions.getIntFromRange(Tree.TREE_HEALTH_MAX, Tree.TREE_HEALTH_MIN), imageStore.getImageList(Tree.TREE_KEY));
+            AnimatedEntity tree = (AnimatedEntity) Tree.createTree(Tree.TREE_KEY + "_" + this.id, this.position, Functions.getNumFromRange(Tree.TREE_ACTION_MAX, Tree.TREE_ACTION_MIN), Functions.getNumFromRange(Tree.TREE_ANIMATION_MAX, Tree.TREE_ANIMATION_MIN), Functions.getIntFromRange(Tree.TREE_HEALTH_MAX, Tree.TREE_HEALTH_MIN), imageStore.getImageList(Tree.TREE_KEY));
 
             world.removeEntity(scheduler, this);
 

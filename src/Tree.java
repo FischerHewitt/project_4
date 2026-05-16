@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Tree extends Entity{
+public class Tree extends AnimatedEntity{
     public static final String TREE_KEY = "tree";
     public static final int TREE_ANIMATION_PERIOD_IDX = 0;
     public static final int TREE_ACTION_PERIOD_IDX = 1;

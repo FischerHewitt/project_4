@@ -26,18 +26,6 @@ public abstract class Action {
         this.type = type;
     }
 
-//    public Action(ActionKind kind, Entity entity ) {
-//        this.entity = entity;
-//    }
-
-//    public static Action createAction(String actionType, Entity entity, WorldModel world, ImageStore imageStore, int animationPeriod, int repeatCount) {
-//        if ( actionType.equals("ACTIVITY") )
-//            return new ACTIVITY(ActionKind.ACTIVITY, entity, world, imageStore);
-//        else
-//            return new ANIMATION(ActionKind.ANIMATION, entity, repeatCount);
-//
-//    }
-
     public static ACTIVITY createActivityAction(Entity entity, WorldModel world, ImageStore imageStore) {
         return new ACTIVITY(entity, world, imageStore);
     }

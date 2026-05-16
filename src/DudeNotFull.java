@@ -31,14 +31,14 @@ public class DudeNotFull extends Dude{
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> target = world.findNearest(this.position, new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
 
-        if (target.isEmpty() || !this.moveToNotFull(world, target.get(), scheduler) || !this.transformNotFull(world, scheduler, imageStore)) {
+        if (target.isEmpty() || !this.moveToNotFull(world, (AnimatedEntity) target.get(), scheduler) || !this.transformNotFull(world, scheduler, imageStore)) {
             scheduler.scheduleEvent(this, Action.createActivityAction(this, world, imageStore), this.actionPeriod);
         }
     }
 
     public boolean transformNotFull(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         if (this.resourceCount >= this.resourceLimit) {
-            Entity dude = DudeFull.createDudeFull(this.id, this.position, this.actionPeriod, this.animationPeriod, this.resourceLimit, this.images);
+            AnimatedEntity dude = (AnimatedEntity) DudeFull.createDudeFull(this.id, this.position, this.actionPeriod, this.animationPeriod, this.resourceLimit, this.images);
 
             world.removeEntity(scheduler, this);
             scheduler.unscheduleAllEvents(this);
@@ -52,7 +52,7 @@ public class DudeNotFull extends Dude{
         return false;
     }
 
-    public boolean moveToNotFull(WorldModel world, Entity target, EventScheduler scheduler) {
+    public boolean moveToNotFull(WorldModel world, AnimatedEntity target, EventScheduler scheduler) {
         if (this.position.adjacent(target.position)) {
             this.resourceCount += 1;
             target.health--;
