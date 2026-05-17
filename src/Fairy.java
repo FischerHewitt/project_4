@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class Fairy extends AnimatedEntity {
+public class Fairy extends ActiveEntity {
     public static final String FAIRY_KEY = "fairy";
     public static final int FAIRY_ANIMATION_PERIOD_IDX = 0;
     public static final int FAIRY_ACTION_PERIOD_IDX = 1;
@@ -20,11 +20,11 @@ public class Fairy extends AnimatedEntity {
      * @return a new Entity whose type is Fairy.
      */
     public static Entity createFairy(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
-        return new Fairy(id, position, images, 0, 0, actionPeriod, animationPeriod, 0, 0);
+        return new Fairy(id, position, images, animationPeriod,0, 0, actionPeriod, 0, 0);
     }
 
-    public Fairy(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
+    public Fairy(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod, int health, int healthLimit) {
+        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
     }
 
     public double getAnimationPeriod() {

@@ -18,7 +18,7 @@ public class DudeFull extends Dude{
      * @return a new Entity whose type is DudeFull.
      */
     public DudeFull(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
+        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
     }
 
     public static Entity createDudeFull(String id, Point position, double actionPeriod, double animationPeriod, int resourceLimit, List<PImage> images) {
@@ -40,7 +40,7 @@ public class DudeFull extends Dude{
     }
 
     public void transformFull(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        AnimatedEntity dude = (AnimatedEntity) DudeNotFull.createDudeNotFull(this.id, this.position, this.actionPeriod, this.animationPeriod, this.resourceLimit, this.images);
+        ActiveEntity dude = (ActiveEntity) DudeNotFull.createDudeNotFull(this.id, this.position, this.actionPeriod, this.animationPeriod, this.resourceLimit, this.images);
 
         world.removeEntity(scheduler, this);
 

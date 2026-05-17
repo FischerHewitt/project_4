@@ -2,15 +2,15 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class Dude extends AnimatedEntity{
+public abstract class Dude extends ActiveEntity{
     public static final String DUDE_KEY = "dude";
     public static final int DUDE_ACTION_PERIOD_IDX = 0;
     public static final int DUDE_ANIMATION_PERIOD_IDX = 1;
     public static final int DUDE_RESOURCE_LIMIT_IDX = 2;
     public static final int DUDE_NUM_PROPERTIES = 3;
 
-    public Dude(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
+    public Dude(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod, int health, int healthLimit) {
+        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
     }
 
     public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);

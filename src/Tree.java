@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Tree extends AnimatedEntity{
+public class Tree extends ActiveEntity{
     public static final String TREE_KEY = "tree";
     public static final int TREE_ANIMATION_PERIOD_IDX = 0;
     public static final int TREE_ACTION_PERIOD_IDX = 1;
@@ -30,7 +30,7 @@ public class Tree extends AnimatedEntity{
     }
 
     public Tree(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
+        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
     }
 
     public double getAnimationPeriod() {

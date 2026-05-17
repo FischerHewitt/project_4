@@ -15,20 +15,11 @@ public class Obstacle extends AnimatedEntity{
      * @return a new Entity whose type is Obstacle.
      */
     public static Entity createObstacle(String id, Point position, double animationPeriod, List<PImage> images) {
-        return new Obstacle(id, position, images, 0, 0, 0, animationPeriod, 0, 0);
+        return new Obstacle(id, position, images, animationPeriod);
     }
 
-    public Obstacle(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
-    }
-
-    // fix later: might not need???
-    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-
-    }
-
-    public double getAnimationPeriod() {
-        return this.animationPeriod;
+    public Obstacle(String id, Point position, List<PImage> images, double animationPeriod) {
+        super(id, position, images, animationPeriod);
     }
 
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {

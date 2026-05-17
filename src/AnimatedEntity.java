@@ -8,10 +8,6 @@ import java.util.*;
 public abstract class AnimatedEntity extends Entity{
     /**
      * Creates a new entity.
-     * @param id The new entity's id.
-     * @param position The entity's x,y position in the world.
-     * @param images Images to use for the Stump.
-     * @return a new Entity whose type is Stump.
      */
 
     /**
@@ -30,13 +26,7 @@ public abstract class AnimatedEntity extends Entity{
         // The Sapling's action and animation periods have to be in sync since it grows and gains health at same time.
 
         // Instance variables
-        protected int imageIndex;
-        protected final int resourceLimit;
-        protected int resourceCount;
-        protected final double actionPeriod;
         protected final double animationPeriod;
-        protected int health;
-        protected final int healthLimit;
 
         /**
          * Creates a new Entity.
@@ -44,52 +34,18 @@ public abstract class AnimatedEntity extends Entity{
          * @param id The id of the new entity.
          * @param position The position (x,y coordinate) of this new entity.
          * @param images The image list associated with this entity.
-         * @param resourceLimit The resourceLimit for this entity. Not all entities need this.
-         * @param resourceCount The resourceCount for this entity. Not all entities need this.
-         * @param actionPeriod The actionPeriod for this entity (i.e., how long it takes to perform each activity action).
-         *                     Not all entities need this.
          * @param animationPeriod The animationPeriod (i.e., how long it takes to perform one animation).
          *                        Not all entities need this.
-         * @param health The entity's starting health. Not all entities need this.
-         * @param healthLimit The entity's upper health limit. Not all entities need this.
          */
-        public AnimatedEntity(String id, Point position, List<PImage> images, int resourceLimit,
-                      int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
+        public AnimatedEntity(String id, Point position, List<PImage> images, double animationPeriod) {
             super(id, position, images);
-            this.resourceLimit = resourceLimit;
-            this.resourceCount = resourceCount;
-            this.actionPeriod = actionPeriod;
             this.animationPeriod = animationPeriod;
-            this.health = health;
-            this.healthLimit = healthLimit;
         }
-
-        public PImage getCurrentImage(){
-            return this.images.get(this.imageIndex % this.images.size());
-        }
-
-        public void nextImage() {
-            this.imageIndex = this.imageIndex + 1;
-        }
-
-        public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
         public abstract void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore);
-
-        /**
-         * Helper method for testing. Preserve this functionality while refactoring.
-         */
-        public String log(){
-            return this.id.isEmpty() ? null :
-                    String.format("%s %d %d %d", this.id, this.position.x, this.position.y, this.imageIndex);
-        }
 
         public double getAnimationPeriod(){
             return this.animationPeriod;
         }
-
-    public int getHealth() {
-        return health;
-    }
 
 }

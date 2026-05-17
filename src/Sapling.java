@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Sapling extends AnimatedEntity{
+public class Sapling extends ActiveEntity{
     public static final double SAPLING_ACTION_ANIMATION_PERIOD = 1.000;
     public static final int SAPLING_HEALTH_LIMIT = 5;
     public static final String SAPLING_KEY = "sapling";
@@ -24,7 +24,7 @@ public class Sapling extends AnimatedEntity{
     }
 
     public Sapling(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, resourceLimit, resourceCount, actionPeriod, animationPeriod, health, healthLimit);
+        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
     }
 
     public double getAnimationPeriod() {
