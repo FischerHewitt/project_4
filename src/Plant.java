@@ -24,30 +24,26 @@ public abstract class Plant extends ActiveEntity{
 
     // Instance variables
     protected int health;
-    protected final int healthLimit;
 
     /**
      * Creates a new Entity.
      *
-     * @param resourceLimit The resourceLimit for this entity. Not all entities need this.
-     * @param resourceCount The resourceCount for this entity. Not all entities need this.
      * @param actionPeriod The actionPeriod for this entity (i.e., how long it takes to perform each activity action).
      *                     Not all entities need this.
      * @param animationPeriod The animationPeriod (i.e., how long it takes to perform one animation).
      *                        Not all entities need this.
      * @param health The entity's starting health. Not all entities need this.
-     * @param healthLimit The entity's upper health limit. Not all entities need this.
+     *
      */
-    public Plant(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit,
-                        int resourceCount, double actionPeriod, int health, int healthLimit) {
-        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod);
+    public Plant(String id, Point position, List<PImage> images, double animationPeriod, double actionPeriod, int health) {
+        super(id, position, images, animationPeriod, actionPeriod);
         this.health = health;
-        this.healthLimit = healthLimit;
     }
 
     public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
-    public abstract void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore);
+
+    public abstract boolean transformPlant(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
 
     public int getHealth() {
         return health;

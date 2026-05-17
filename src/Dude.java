@@ -2,6 +2,10 @@ import processing.core.PImage;
 
 import java.util.List;
 
+/**
+ * @param resourceLimit The resourceLimit for this entity. Not all entities need this.
+ * @param resourceCount The resourceCount for this entity. Not all entities need this.
+ * */
 public abstract class Dude extends ActiveEntity{
     public static final String DUDE_KEY = "dude";
     public static final int DUDE_ACTION_PERIOD_IDX = 0;
@@ -9,16 +13,16 @@ public abstract class Dude extends ActiveEntity{
     public static final int DUDE_RESOURCE_LIMIT_IDX = 2;
     public static final int DUDE_NUM_PROPERTIES = 3;
 
+    protected final int resourceLimit;
+    protected int resourceCount;
+
     public Dude(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod) {
-        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod);
+        super(id, position, images, animationPeriod, actionPeriod);
+        this.resourceLimit = resourceLimit;
+        this.resourceCount = resourceCount;
     }
 
     public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
-
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        scheduler.scheduleEvent(this, Action.createActivityAction(this, world, imageStore), this.actionPeriod);
-        scheduler.scheduleEvent(this, Action.createAnimationAction(this, 0, world, imageStore), getAnimationPeriod());
-    }
 
     public abstract double getAnimationPeriod();
 

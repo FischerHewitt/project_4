@@ -8,6 +8,7 @@ public class Sapling extends Plant{
     public static final String SAPLING_KEY = "sapling";
     public static final int SAPLING_HEALTH_IDX = 0;
     public static final int SAPLING_NUM_PROPERTIES = 1;
+    protected final int healthLimit;
     /**
      * Creates a new Sapling.
      * @param id The new Sapling's id.
@@ -17,23 +18,16 @@ public class Sapling extends Plant{
      *               Note that the Sapling also has an upper health limit, after which it will turn into a tree.
      *               Like the Tree, the Sapling also has an action and animation period, but those are not parameters
      *               since they need to be kept in sync with each other. The Sapling's activity is to grow.
+     * @param healthLimit The entity's upper health limit. Not all entities need this.
      * @return a new Entity whose type is Sapling.
      */
-    public static Entity createSapling(String id, Point position, List<PImage> images, int health) {
-        return new Sapling(id, position, images, 0, 0, SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, 0, SAPLING_HEALTH_LIMIT);
+    public static Entity createSapling(String id, Point position, List<PImage> images) {
+        return new Sapling(id, position, images, SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, 0, SAPLING_HEALTH_LIMIT);
     }
 
-    public Sapling(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
-    }
-
-    public double getAnimationPeriod() {
-        return  this.animationPeriod;
-    }
-
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        scheduler.scheduleEvent(this, Action.createActivityAction(this, world, imageStore), this.actionPeriod);
-        scheduler.scheduleEvent(this, Action.createAnimationAction(this, 0, world, imageStore), getAnimationPeriod());
+    public Sapling(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod, int health, int healthLimit) {
+        super(id, position, images, animationPeriod, actionPeriod, health);
+        this.healthLimit = healthLimit;
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
@@ -43,7 +37,6 @@ public class Sapling extends Plant{
         }
     }
 
-    // fix later: delete this.kind
     public boolean transformPlant(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         if (this.getClass().getSimpleName().equals("Sapling")) {
             return this.transformSapling(world, scheduler, imageStore);

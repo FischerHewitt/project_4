@@ -26,21 +26,13 @@ public class Tree extends Plant{
      */
 
     public static Entity createTree(String id, Point position, double actionPeriod, double animationPeriod, int health, List<PImage> images) {
-        return new Tree(id, position, images, 0, 0, actionPeriod, animationPeriod, health, 0);
+        return new Tree(id, position, images, actionPeriod, animationPeriod, health);
     }
 
-    public Tree(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
+    public Tree(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod, int health) {
+        super(id, position, images, animationPeriod, actionPeriod, health);
     }
 
-    public double getAnimationPeriod() {
-        return  this.animationPeriod;
-    }
-
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        scheduler.scheduleEvent(this, Action.createActivityAction(this, world, imageStore), this.actionPeriod);
-        scheduler.scheduleEvent(this, Action.createAnimationAction(this, 0, world, imageStore), getAnimationPeriod());
-    }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
 
@@ -50,7 +42,6 @@ public class Tree extends Plant{
         }
     }
 
-    //fix later: delete this.kind
     public boolean transformPlant(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         if (this.getClass().getSimpleName().equals("Tree")){
             return this.transformTree(world, scheduler, imageStore);

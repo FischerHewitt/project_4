@@ -28,30 +28,27 @@ public abstract class ActiveEntity extends AnimatedEntity{
         // The Sapling's action and animation periods have to be in sync since it grows and gains health at same time.
 
         // Instance variables
-        protected final int resourceLimit;
-        protected int resourceCount;
         protected final double actionPeriod;
 
         /**
          * Creates a new Entity.
          *
-         * @param resourceLimit The resourceLimit for this entity. Not all entities need this.
-         * @param resourceCount The resourceCount for this entity. Not all entities need this.
+
          * @param actionPeriod The actionPeriod for this entity (i.e., how long it takes to perform each activity action).
          *                     Not all entities need this.
          * @param animationPeriod The animationPeriod (i.e., how long it takes to perform one animation).
          *                        Not all entities need this.
          */
-        public ActiveEntity(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit,
-                              int resourceCount, double actionPeriod) {
+        public ActiveEntity(String id, Point position, List<PImage> images, double animationPeriod, double actionPeriod) {
             super(id, position, images, animationPeriod);
-            this.resourceLimit = resourceLimit;
-            this.resourceCount = resourceCount;
             this.actionPeriod = actionPeriod;
         }
 
-    public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
+    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
+        scheduler.scheduleEvent(this, Action.createActivityAction(this, world, imageStore), this.actionPeriod);
+        scheduler.scheduleEvent(this, Action.createAnimationAction(this, 0, world, imageStore), getAnimationPeriod());
+    }
 
-        public abstract void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore);
+    public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
 }

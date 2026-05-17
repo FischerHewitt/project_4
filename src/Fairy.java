@@ -20,16 +20,11 @@ public class Fairy extends ActiveEntity {
      * @return a new Entity whose type is Fairy.
      */
     public static Entity createFairy(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
-        return new Fairy(id, position, images, animationPeriod,0, 0, actionPeriod);
+        return new Fairy(id, position, images, animationPeriod, actionPeriod);
     }
 
-    public Fairy(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod) {
-        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod);
-    }
-
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
-        scheduler.scheduleEvent(this, Action.createActivityAction(this, world, imageStore), this.actionPeriod);
-        scheduler.scheduleEvent(this, Action.createAnimationAction(this, 0, world, imageStore), getAnimationPeriod());
+    public Fairy(String id, Point position, List<PImage> images, double animationPeriod, double actionPeriod) {
+        super(id, position, images, animationPeriod, actionPeriod);
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
@@ -40,7 +35,7 @@ public class Fairy extends ActiveEntity {
 
             if (this.moveToFairy(world, fairyTarget.get(), scheduler)) {
 
-                AnimatedEntity sapling = (AnimatedEntity) Sapling.createSapling(Sapling.SAPLING_KEY + "_" + fairyTarget.get().id, tgtPos, imageStore.getImageList(Sapling.SAPLING_KEY), 0);
+                AnimatedEntity sapling = (AnimatedEntity) Sapling.createSapling(Sapling.SAPLING_KEY + "_" + fairyTarget.get().id, tgtPos, imageStore.getImageList(Sapling.SAPLING_KEY));
 
                 world.addEntity(sapling);
                 sapling.scheduleActions(scheduler, world, imageStore);
