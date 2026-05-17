@@ -18,10 +18,10 @@ public class DudeNotFull extends Dude{
      * @return a new Entity whose type is DudeNotFull.
      */
     public static Entity createDudeNotFull(String id, Point position, double actionPeriod, double animationPeriod, int resourceLimit, List<PImage> images) {
-        return new DudeNotFull(id, position, images, animationPeriod, resourceLimit, 0, actionPeriod, 0, 0);
+        return new DudeNotFull(id, position, images, animationPeriod, resourceLimit, 0, actionPeriod);
     }
-    public DudeNotFull(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod, int health, int healthLimit) {
-        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
+    public DudeNotFull(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod) {
+        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod);
     }
 
     public double getAnimationPeriod() {
@@ -31,7 +31,7 @@ public class DudeNotFull extends Dude{
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> target = world.findNearest(this.position, new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
 
-        if (target.isEmpty() || !this.moveToNotFull(world, (ActiveEntity) target.get(), scheduler) || !this.transformNotFull(world, scheduler, imageStore)) {
+        if (target.isEmpty() || !this.moveToNotFull(world, (Plant) target.get(), scheduler) || !this.transformNotFull(world, scheduler, imageStore)) {
             scheduler.scheduleEvent(this, Action.createActivityAction(this, world, imageStore), this.actionPeriod);
         }
     }
@@ -52,7 +52,7 @@ public class DudeNotFull extends Dude{
         return false;
     }
 
-    public boolean moveToNotFull(WorldModel world, ActiveEntity target, EventScheduler scheduler) {
+    public boolean moveToNotFull(WorldModel world, Plant target, EventScheduler scheduler) {
         if (this.position.adjacent(target.position)) {
             this.resourceCount += 1;
             target.health--;

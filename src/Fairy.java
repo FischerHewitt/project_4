@@ -20,15 +20,11 @@ public class Fairy extends ActiveEntity {
      * @return a new Entity whose type is Fairy.
      */
     public static Entity createFairy(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
-        return new Fairy(id, position, images, animationPeriod,0, 0, actionPeriod, 0, 0);
+        return new Fairy(id, position, images, animationPeriod,0, 0, actionPeriod);
     }
 
-    public Fairy(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod, int health, int healthLimit) {
-        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
-    }
-
-    public double getAnimationPeriod() {
-        return  this.animationPeriod;
+    public Fairy(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod) {
+        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod);
     }
 
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {

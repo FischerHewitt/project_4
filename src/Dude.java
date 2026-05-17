@@ -9,8 +9,8 @@ public abstract class Dude extends ActiveEntity{
     public static final int DUDE_RESOURCE_LIMIT_IDX = 2;
     public static final int DUDE_NUM_PROPERTIES = 3;
 
-    public Dude(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod, int health, int healthLimit) {
-        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
+    public Dude(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit, int resourceCount, double actionPeriod) {
+        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod);
     }
 
     public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);

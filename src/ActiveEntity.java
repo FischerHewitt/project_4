@@ -31,8 +31,6 @@ public abstract class ActiveEntity extends AnimatedEntity{
         protected final int resourceLimit;
         protected int resourceCount;
         protected final double actionPeriod;
-        protected int health;
-        protected final int healthLimit;
 
         /**
          * Creates a new Entity.
@@ -43,32 +41,17 @@ public abstract class ActiveEntity extends AnimatedEntity{
          *                     Not all entities need this.
          * @param animationPeriod The animationPeriod (i.e., how long it takes to perform one animation).
          *                        Not all entities need this.
-         * @param health The entity's starting health. Not all entities need this.
-         * @param healthLimit The entity's upper health limit. Not all entities need this.
          */
         public ActiveEntity(String id, Point position, List<PImage> images, double animationPeriod, int resourceLimit,
-                              int resourceCount, double actionPeriod, int health, int healthLimit) {
+                              int resourceCount, double actionPeriod) {
             super(id, position, images, animationPeriod);
             this.resourceLimit = resourceLimit;
             this.resourceCount = resourceCount;
             this.actionPeriod = actionPeriod;
-            this.health = health;
-            this.healthLimit = healthLimit;
         }
 
-        public PImage getCurrentImage(){
-            return this.images.get(this.imageIndex % this.images.size());
-        }
-
-        public void nextImage() {
-            this.imageIndex = this.imageIndex + 1;
-        }
-
-        public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
+    public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
 
         public abstract void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore);
 
-        public int getHealth() {
-            return health;
-        }
 }

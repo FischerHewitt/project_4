@@ -17,12 +17,12 @@ public class DudeFull extends Dude{
      * @param images Images to use for the Dude.
      * @return a new Entity whose type is DudeFull.
      */
-    public DudeFull(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod, health, healthLimit);
+    public DudeFull(String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod) {
+        super(id, position, images, animationPeriod, resourceLimit, resourceCount, actionPeriod);
     }
 
     public static Entity createDudeFull(String id, Point position, double actionPeriod, double animationPeriod, int resourceLimit, List<PImage> images) {
-        return new DudeFull(id, position, images, resourceLimit, 0, actionPeriod, animationPeriod, 0, 0);
+        return new DudeFull(id, position, images, resourceLimit, 0, actionPeriod, animationPeriod);
     }
 
     public double getAnimationPeriod() {
