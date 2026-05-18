@@ -100,7 +100,8 @@ public final class WorldModel {
      */
     private void parseSapling(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == Sapling.SAPLING_NUM_PROPERTIES) {
-            Entity entity = Sapling.createSapling(id, pt, imageStore.getImageList(Sapling.SAPLING_KEY)); // uses sapling class
+            int health = Integer.parseInt(properties[Sapling.SAPLING_HEALTH_IDX]);
+            Entity entity = Sapling.createSapling(id, pt, imageStore.getImageList(Sapling.SAPLING_KEY), health); // uses sapling class
             this.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", Sapling.SAPLING_KEY, Sapling.SAPLING_NUM_PROPERTIES));

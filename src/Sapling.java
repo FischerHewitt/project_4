@@ -32,8 +32,12 @@ public class Sapling extends Plant{
      * Result: Returns a new Sapling
      * Output: Sapling
      */
+    public static Entity createSapling(String id, Point position, List<PImage> images, int health) {
+        return new Sapling(id, position, images, SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, health, SAPLING_HEALTH_LIMIT);
+    }
+
     public static Entity createSapling(String id, Point position, List<PImage> images) {
-        return new Sapling(id, position, images, SAPLING_ACTION_ANIMATION_PERIOD, SAPLING_ACTION_ANIMATION_PERIOD, 0, SAPLING_HEALTH_LIMIT);
+        return createSapling(id, position, images, 0);
     }
     /**
      * Creates a new Sapling.
