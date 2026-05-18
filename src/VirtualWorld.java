@@ -3,6 +3,14 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import processing.core.*;
+/*
+ Developers: Fischer Hewitt, Ayaan Kazerouni, Paris Kalathas
+ Date: 05/14/2026
+ Project 4: Cohesion
+ Description: This project refactors a virtual world that has several different entities that perform different tasks
+ and interact with each other. Trees can get chopped down, saplings can grow, faries search for stumps and make them grow,
+ dudes move around collecting resources from plants. The world runs automatically and the entities interact with each other.
+ */
 
 public final class VirtualWorld extends PApplet {
     // instance variables

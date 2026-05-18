@@ -4,6 +4,13 @@ import processing.core.PImage;
 import java.util.*;
 
 /**
+ Developers: Fischer Hewitt, Ayaan Kazerouni, Paris Kalathas
+ Date: 05/14/2026
+ Project 4: Cohesion
+ Description: This project refactors a virtual world that has several different entities that perform different tasks
+ and interact with each other. Trees can get chopped down, saplings can grow, faries search for stumps and make them grow,
+ dudes move around collecting resources from plants. The world runs automatically and the entities interact with each other.
+
  * Represents the 2D World in which this simulation is running.
  * Keeps track of the size of the world, the background image for each
  * location in the world, and the entities that populate the world.
