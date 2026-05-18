@@ -9,6 +9,7 @@ import java.util.*;
  * location in the world, and the entities that populate the world.
  */
 public final class WorldModel {
+    // instance variables
     public static final int KEYED_IMAGE_MIN = 5;
     public static final int PROPERTY_KEY = 0;
     public static final int PROPERTY_ID = 1;
@@ -91,17 +92,26 @@ public final class WorldModel {
             lineNumber++;
         }
     }
-
+    /*
+     Purpose: Parses a sapling creates a Sapling entity directly.
+     Input: String[] properties, Point pt, String id, ImageStore imageStore.
+     Result: A new Sapling is created and added to the world.
+     Output: void
+     */
     private void parseSapling(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == Sapling.SAPLING_NUM_PROPERTIES) {
-            int health = Integer.parseInt(properties[Sapling.SAPLING_HEALTH_IDX]);
-            Entity entity = Sapling.createSapling(id, pt, imageStore.getImageList(Sapling.SAPLING_KEY));
+            Entity entity = Sapling.createSapling(id, pt, imageStore.getImageList(Sapling.SAPLING_KEY)); // uses sapling class
             this.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", Sapling.SAPLING_KEY, Sapling.SAPLING_NUM_PROPERTIES));
         }
     }
-
+    /*
+   Purpose: Parses a dude creates a dudeNotFull entity directly.
+   Input: String[] properties, Point pt, String id, ImageStore imageStore.
+   Result: A new dudeNotFull is created and added to the world.
+   Output: void
+   */
     private void parseDude(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == Dude.DUDE_NUM_PROPERTIES) {
             Entity entity = DudeNotFull.createDudeNotFull(id, pt, Double.parseDouble(properties[Dude.DUDE_ACTION_PERIOD_IDX]), Double.parseDouble(properties[Dude.DUDE_ANIMATION_PERIOD_IDX]), Integer.parseInt(properties[Dude.DUDE_RESOURCE_LIMIT_IDX]), imageStore.getImageList(Dude.DUDE_KEY));
@@ -110,7 +120,12 @@ public final class WorldModel {
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", Dude.DUDE_KEY, Dude.DUDE_NUM_PROPERTIES));
         }
     }
-
+    /*
+   Purpose: Parses a Fairy creates a Fairy entity directly.
+   Input: String[] properties, Point pt, String id, ImageStore imageStore.
+   Result: A new Fairy  is created and added to the world.
+   Output: void
+   */
     private void parseFairy(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == Fairy.FAIRY_NUM_PROPERTIES) {
             Entity entity = Fairy.createFairy(id, pt, Double.parseDouble(properties[Fairy.FAIRY_ACTION_PERIOD_IDX]), Double.parseDouble(properties[Fairy.FAIRY_ANIMATION_PERIOD_IDX]), imageStore.getImageList(Fairy.FAIRY_KEY));
@@ -119,7 +134,12 @@ public final class WorldModel {
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", Fairy.FAIRY_KEY, Fairy.FAIRY_NUM_PROPERTIES));
         }
     }
-
+    /*
+   Purpose: Parses a Tree creates a Tree entity directly.
+   Input: String[] properties, Point pt, String id, ImageStore imageStore.
+   Result: A new Tree  is created and added to the world.
+   Output: void
+   */
     private void parseTree(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == Tree.TREE_NUM_PROPERTIES) {
             Entity entity = Tree.createTree(id, pt, Double.parseDouble(properties[Tree.TREE_ACTION_PERIOD_IDX]), Double.parseDouble(properties[Tree.TREE_ANIMATION_PERIOD_IDX]), Integer.parseInt(properties[Tree.TREE_HEALTH_IDX]), imageStore.getImageList(Tree.TREE_KEY));
@@ -128,7 +148,12 @@ public final class WorldModel {
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", Tree.TREE_KEY, Tree.TREE_NUM_PROPERTIES));
         }
     }
-
+    /*
+   Purpose: Parses an Obstacle creates an Obstacle entity directly.
+   Input: String[] properties, Point pt, String id, ImageStore imageStore.
+   Result: A new Obstacle is created and added to the world.
+   Output: void
+   */
     private void parseObstacle(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == Obstacle.OBSTACLE_NUM_PROPERTIES) {
             Entity entity = Obstacle.createObstacle(id, pt, Double.parseDouble(properties[Obstacle.OBSTACLE_ANIMATION_PERIOD_IDX]), imageStore.getImageList(Obstacle.OBSTACLE_KEY));
@@ -137,7 +162,12 @@ public final class WorldModel {
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", Obstacle.OBSTACLE_KEY, Obstacle.OBSTACLE_NUM_PROPERTIES));
         }
     }
-
+    /*
+   Purpose: Parses an House creates an House entity directly.
+   Input: String[] properties, Point pt, String id, ImageStore imageStore.
+   Result: A new House is created and added to the world.
+   Output: void
+   */
     private void parseHouse(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == House.HOUSE_NUM_PROPERTIES) {
             Entity entity = House.createHouse(id, pt, imageStore.getImageList(House.HOUSE_KEY));
@@ -146,7 +176,12 @@ public final class WorldModel {
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", House.HOUSE_KEY, House.HOUSE_NUM_PROPERTIES));
         }
     }
-
+    /*
+    Purpose: Parses a Stump creates a Stump entity directly.
+    Input: String[] properties, Point pt, String id, ImageStore imageStore.
+    Result: A new Stump is created and added to the world.
+    Output: void
+    */
     private void parseStump(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == Stump.STUMP_NUM_PROPERTIES) {
             Entity entity = Stump.createStump(id, pt, imageStore.getImageList(Stump.STUMP_KEY));
@@ -178,6 +213,10 @@ public final class WorldModel {
      *
      * @param line The line. An example line is: tree 35 37 0.256 1.168 2
      * @param imageStore Images to use for the Entity that will be created.
+     * Purpose: Chooses which specific entity subclass should be created based on the key.
+     * Input: String key.
+     * Result: Calls the correct parse method for the matching entity type.
+     * Output: void.
      */
     public void parseEntity(String line, ImageStore imageStore) {
         String[] properties = line.split(" ", ENTITY_NUM_PROPERTIES + 1);
@@ -323,7 +362,12 @@ public final class WorldModel {
             this.entities.add(entity);
         }
     }
-
+    /*
+    Purpose: Finds the nearest entity whose class matches one of the requested entity types.
+    Input: Point pos and List<Class<? extends Entity>> types.
+    Result: Builds a list of matching entities and finds the closest one.
+    Output: Optional<Entity> containing the nearest matching entity, or Optional.empty() if none are found.
+    */
     public Optional<Entity> findNearest(Point pos, List<Class<? extends Entity>> types) {
         List<Entity> ofType = new LinkedList<>();
 

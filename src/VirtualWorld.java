@@ -5,6 +5,7 @@ import java.util.*;
 import processing.core.*;
 
 public final class VirtualWorld extends PApplet {
+    // instance variables
     private static String[] ARGS;
 
     public static final int VIEW_WIDTH = 640;
@@ -56,25 +57,34 @@ public final class VirtualWorld extends PApplet {
         this.scheduler.updateOnTime(frameTime);
     }
 
-    // Just for debugging and for P5
-    // Be sure to refactor this method as appropriate
+    /*
+    Purpose: Handles mouse clicks by identifying the entity at the clicked world position.
+    Input: The mouse position from Processing.
+    Result: Prints the clicked entity's id and class name, and prints health only if the entity is a Plant.
+    Output: void.
+    */
     public void mousePressed() {
         Point pressed = mouseToPoint();
-        System.out.println("CLICK! " + pressed.x + ", " + pressed.y);
+        System.out.print("CLICK! " + "Point(" + pressed.x + ", " + pressed.y + ") ");
 
         Optional<Entity> entityOptional = world.getOccupant(pressed);
         entityOptional.ifPresent(entity -> {
                 System.out.print(entity.getId() + ": " + entity.getClass().getSimpleName());
 
                 if (entity instanceof Plant plant) {
-                    System.out.print(" : " + plant.getHealth());
+                    System.out.print(" : Health=" + plant.getHealth());
                 }
 
                 System.out.println();
         });
 
     }
-
+    /*
+    Purpose: Schedules actions only for entities that have animation behavior.
+    Input: WorldModel world, EventScheduler scheduler, ImageStore imageStore.
+    Result: Each AnimatedEntity schedules its animation and activity events.
+    Output: void
+    */
     public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         for (Entity entity : world.getEntities()) {
             if (entity instanceof AnimatedEntity animatedEntity) {
